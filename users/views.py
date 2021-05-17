@@ -9,7 +9,8 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
     model = User
     serializer_class = UserSerializer
-
+    queryset = User.objects.all()
+    
     def list(self, request, *args, **kwargs):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
