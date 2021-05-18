@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'users',
     'api',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -149,4 +150,21 @@ REST_FRAMEWORK = {
 
 OAUTH2_PROVIDER = {
     'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
+}
+
+
+'''
+in 
+venv\Lib\site-packages\tornado\platform\asyncio.py
+paste 
+if sys.platform == 'win32':
+    asyncio.set_event_loop_policy(sys.addaudithook.WindowSelectorEventLoopPolicy())
+'''
+
+CELERY_BEAT_SCHEDULE = {
+    "scheduled_task":{
+        "task" : "users.tasks.send_email_task",
+        "schedule": 6.0,
+        "args" : ("a@b.com", "admin123"),
+    },
 }
